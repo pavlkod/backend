@@ -42,6 +42,18 @@ class PostController {
       res.status(500).json(e);
     }
   }
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+      if (!id) {
+        res.status(400).json({ message: "Id not retrive" });
+      }
+      const deletedPost = await Post.findByIdAndDelete(id);
+      res.json(deletedPost);
+    } catch (e) {
+      res.status(500).json(e);
+    }
+  }
 }
 
 export default new PostController();
