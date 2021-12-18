@@ -16,5 +16,12 @@ class PostService {
     const post = await Post.findById(id);
     return post;
   }
+  async update(post) {
+    if (!post._id) {
+      throw new Error("Id not retrive");
+    }
+    const updatedPost = await Post.findByIdAndUpdate(post._id, post, { new: true });
+    return updatedPost;
+  }
 }
 export default new PostService();
