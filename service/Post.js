@@ -5,5 +5,9 @@ class PostService {
     const createdPost = await Post.create(post);
     return createdPost;
   }
+  async getAll() {
+    const posts = await Post.find();
+    return posts;
+  }
 }
 export default new PostService();
