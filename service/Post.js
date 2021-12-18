@@ -23,5 +23,12 @@ class PostService {
     const updatedPost = await Post.findByIdAndUpdate(post._id, post, { new: true });
     return updatedPost;
   }
+  async delete(id) {
+    if (!id) {
+      throw new Error("Id not retrive");
+    }
+    const deletedPost = await Post.findByIdAndDelete(id);
+    return deletedPost;
+  }
 }
 export default new PostService();
