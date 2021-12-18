@@ -9,5 +9,12 @@ class PostService {
     const posts = await Post.find();
     return posts;
   }
+  async getOne(id) {
+    if (!id) {
+      throw new Error("Id not retrive");
+    }
+    const post = await Post.findById(id);
+    return post;
+  }
 }
 export default new PostService();
