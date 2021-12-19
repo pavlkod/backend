@@ -1,10 +1,9 @@
-import Post from "../models/Post.js";
 import PostService from "../service/Post.js";
 
 class PostController {
   async create(req, res) {
     try {
-      const post = await PostService.create(req.body);
+      const post = await PostService.create(req.body, req?.files?.picture);
       res.json(post);
     } catch (e) {
       res.status(500).json(e);
@@ -23,31 +22,23 @@ class PostController {
       const post = await PostService.getOne(req.params.id);
       res.json(post);
     } catch (e) {
-      res.status(500).json(e);
+      res.status(500).json(e.message);
     }
   }
   async update(req, res) {
     try {
-      const post = req.body;
-      if (!post._id) {
-        res.status(400).json({ message: "Id not retrive" });
-      }
-      const updatedPost = await Post.findByIdAndUpdate(post._id, post, { new: true });
+      const updatedPost = await PostService.update(req.body);
       res.json(updatedPost);
     } catch (e) {
-      res.status(500).json(e);
+      res.status(500).json(e.message);
     }
   }
   async delete(req, res) {
     try {
-      const { id } = req.params;
-      if (!id) {
-        res.status(400).json({ message: "Id not retrive" });
-      }
-      const deletedPost = await Post.findByIdAndDelete(id);
+      const deletedPost = await PostService.delete(req.params.id);
       res.json(deletedPost);
     } catch (e) {
-      res.status(500).json(e);
+      res.status(500).json(e.message);
     }
   }
 }
