@@ -11,6 +11,7 @@ config();
 const app = express();
 
 app.use(express.json());
+app.use(express.static("assets/img"));
 app.use(fileupload({}));
 app.use("/", router);
 
